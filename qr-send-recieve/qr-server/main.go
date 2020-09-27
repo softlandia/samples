@@ -35,10 +35,13 @@ func qrGenerate(c *gin.Context) {
 	}
 	body, _ := ioutil.ReadAll(c.Request.Body)
 	q := qrRequest{}
-	_ = json.Unmarshal(body, &q)
+	if err := json.Unmarshal(body, &q); err != nil {
+		log.Println(err)
+		c.String(400, "%s", err.Error())
+		return
+	}
 	log.Println(q)
-
-	dataString := fmt.Sprintf(`{\n"employeeID":%d,\n"officeID":%d,\n"date":%s\n}`, q.EmployeeID, q.OfficeID, q.Date)
+	dataString := fmt.Sprintf(`{"employeeID":%d,"officeID":%d,"date":%s}`, q.EmployeeID, q.OfficeID, q.Date.Format("2006-01-02"))
 	qrCode, _ := qr.Encode(dataString, qr.L, qr.Auto)
 	qrCode, _ = barcode.Scale(qrCode, 512, 512)
 	b := bytes.NewBuffer([]byte{})
