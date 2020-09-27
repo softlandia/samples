@@ -8,6 +8,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"time"
 
 	"github.com/boombuler/barcode"
 	"github.com/boombuler/barcode/qr"
@@ -28,9 +29,9 @@ func main() {
 
 func qrGenerate(c *gin.Context) {
 	type qrRequest struct {
-		EmployeeID uint64 `json:"employeeID"` // идентификатор сотрудника
-		OfficeID   uint64 `json:"officeID"`   // идентификатор склада
-		Date       string `json:"date"`       // дата выхода
+		EmployeeID uint64    `json:"employeeID"` // идентификатор сотрудника
+		OfficeID   uint64    `json:"officeID"`   // идентификатор склада
+		Date       time.Time `json:"date"`       // дата выхода
 	}
 	body, _ := ioutil.ReadAll(c.Request.Body)
 	q := qrRequest{}
