@@ -10,7 +10,7 @@
 
 body должно содержать json формата
 
-```json
+```bash
 {
 	"employeeID": uint64
 	"officeID":   uint64
@@ -23,7 +23,7 @@ body должно содержать json формата
 Ќапример на входе
 
 
-```json
+```bash
 {
 	"employeeID":1,
 	"officeID":911,
